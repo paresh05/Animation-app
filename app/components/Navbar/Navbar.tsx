@@ -8,11 +8,12 @@ import ContactUs from "../../assets/contactUs.svg";
 import Globe from "../../assets/globe.svg";
 import Menu from "../../assets/menu.svg";
 import Close from "../../assets/close.svg";
-import SouthAsia from "../../assets/regions/sea.svg";
-import Latam from "../../assets/regions/latam.svg";
-import NorthAmerica from "../../assets/regions/northAmerica.svg";
-import Europe from "../../assets/regions/europe.svg";
-import India from "../../assets/regions/india.svg";
+import {
+  GLOBAL_OPTIONS,
+  JUSPAY_LOGO,
+  LOGO_DISPLAY_ORDER,
+  NAVIGATION_LINKS,
+} from "@/app/utils/constants";
 import "./navbar.css";
 
 export default function Navbar() {
@@ -23,11 +24,9 @@ export default function Navbar() {
   const handleLogoTextAnimation = () => {
     const letters = document.querySelectorAll(".letter");
 
-    const order = ["S", "P", "U", "A", "J", "Y"];
-
     const tl = gsap.timeline();
 
-    order.forEach((letter, index) => {
+    LOGO_DISPLAY_ORDER.forEach((letter, index) => {
       const letterElements = Array.from(letters).find(
         (el) => el.textContent === letter
       );
@@ -79,33 +78,23 @@ export default function Navbar() {
             priority
           />
           <p className="text-white text-xl md:text-2xl lg:text-3xl font-semibold">
-            <span className="letter">J</span>
-            <span className="letter">U</span>
-            <span className="letter">S</span>
-            <span className="letter">P</span>
-            <span className="letter">A</span>
-            <span className="letter">Y</span>
+            {JUSPAY_LOGO.map((letter, index) => (
+              <span key={index} className="letter">
+                {letter}
+              </span>
+            ))}
           </p>
         </div>
         <div className="flex items-center gap-3 md:gap-5 lg:gap-4">
-          <a
-            className="hidden px-3 lg:block text-lg opacity-0 text-white hover:text-[#0B65E3] font-medium hover:font-semibold"
-            href="/about-us"
-          >
-            About us
-          </a>
-          <a
-            className="hidden px-3 lg:block text-lg opacity-0 text-white hover:text-[#0B65E3] font-medium hover:font-semibold"
-            href="/docs"
-          >
-            Docs
-          </a>
-          <a
-            className="hidden px-3 lg:block opacity-0 text-lg text-white hover:text-[#0B65E3] font-medium hover:font-semibold"
-            href="/integrations"
-          >
-            Integrations
-          </a>
+          {NAVIGATION_LINKS.map((link, index) => (
+            <a
+              className="hidden px-3 lg:block text-lg opacity-0 text-white hover:text-[#0B65E3] font-medium hover:font-semibold"
+              key={index}
+              href={link.href}
+            >
+              {link.text}
+            </a>
+          ))}
           <a
             onMouseOver={() => setShowOptions(true)}
             onMouseOut={() => {
@@ -154,56 +143,18 @@ export default function Navbar() {
           </div>
           <div className="w-full border-t border-[#3C3636]" />
           <div className="px-6 pt-4 pb-6 flex-col gap-6 flex">
-            <div className=" flex gap-3 items-center">
-              <Image
-                alt="SEA"
-                className="min-w-8 min-h-8 w-8 h-8 mt-1"
-                src={SouthAsia}
-              />
-              <a className="cursor-pointer whitespace-nowrap text-lg hover:text-[#0561E2]">
-                Southeast Asia(SEA)
-              </a>
-            </div>
-            <div className=" flex gap-3 items-center">
-              <Image
-                alt="LATAM"
-                className="min-w-8 min-h-8 w-8 h-8 mt-1"
-                src={Latam}
-              />
-              <a className="cursor-pointer whitespace-nowrap text-lg hover:text-[#0561E2]">
-                Latin America(LATAM)
-              </a>
-            </div>
-            <div className=" flex gap-3 items-center">
-              <Image
-                alt="North America"
-                className="min-w-8 min-h-8 w-8 h-8 mt-1"
-                src={NorthAmerica}
-              />
-              <a className="cursor-pointer whitespace-nowrap text-lg hover:text-[#0561E2]">
-                North America
-              </a>
-            </div>
-            <div className="flex gap-3 items-center">
-              <Image
-                alt="Europe"
-                className="min-w-8 min-h-8 w-8 h-8 mt-1"
-                src={Europe}
-              />
-              <a className="cursor-pointer whitespace-nowrap text-lg hover:text-[#0561E2]">
-                Europe
-              </a>
-            </div>
-            <div className=" flex gap-3 items-center">
-              <Image
-                alt="India"
-                className="min-w-8 min-h-8 w-8 h-8 mt-1"
-                src={India}
-              />
-              <a className="cursor-pointer whitespace-nowrap text-lg hover:text-[#0561E2]">
-                India
-              </a>
-            </div>
+            {GLOBAL_OPTIONS.map((options, index) => (
+              <div key={index} className=" flex gap-3 items-center">
+                <Image
+                  alt={options.text}
+                  className="min-w-8 min-h-8 w-8 h-8 mt-1"
+                  src={options.image}
+                />
+                <a className="cursor-pointer whitespace-nowrap text-lg hover:text-[#0561E2]">
+                  {options.text}
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -214,34 +165,16 @@ export default function Navbar() {
         >
           <div className="rounded-2xl border-[0.5px] border-solid border-[#D0E4FD] bg-white">
             <div className="pb-6">
-              <div>
-                <div>
-                  <div className="pt-6 px-3">
-                    <a
-                      href="/about"
-                      className="text-[14px] text-[#394762] font-[600]"
-                    >
-                      About us
-                    </a>
-                  </div>
-                  <div className="pt-6 px-3">
-                    <a
-                      href="/docs"
-                      className="text-[14px] text-[#394762] font-[600]"
-                    >
-                      Docs
-                    </a>
-                  </div>
-                  <div className="pt-6 px-3">
-                    <a
-                      href="/integrations"
-                      className="text-[14px] text-[#394762] font-[600]"
-                    >
-                      Integrations
-                    </a>
-                  </div>
+              {NAVIGATION_LINKS.map((link, index) => (
+                <div key={index} className="pt-6 px-3">
+                  <a
+                    href={link.href}
+                    className="text-[14px] text-[#394762] font-[600]"
+                  >
+                    {link.text}
+                  </a>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

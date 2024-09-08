@@ -4,6 +4,7 @@ import { motion, useCycle } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { CHARACTERS, GLOBAL, GLOBAL_COVERAGE, JUSPAY, OUTCOMES, PAGE_TITLE, SECONDARY_MOBILE_TEXT, SECONDARY_TEXT, SIMPLIFY } from "@/app/utils/constants";
 
 export default function PageContent() {
   const titleRef = useRef(null);
@@ -12,13 +13,11 @@ export default function PageContent() {
   const odometerTitleRef = useRef(null);
   const outcomesTitleRef = useRef(null);
 
-  const characters = "A$$RR$I$BCDE$F$";
-
   const generateString = (length: number) => {
     let result = "";
-    const charactersLength = characters.length;
+    const charactersLength = CHARACTERS.length;
     for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      result += CHARACTERS.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
   };
@@ -50,8 +49,8 @@ export default function PageContent() {
   };
 
   useEffect(() => {
-    setGlobalLetters(handleOdometerLettersArray("GLOBAL"));
-    setOutcomesLetters(handleOdometerLettersArray("OUTCOMES"));
+    setGlobalLetters(handleOdometerLettersArray(GLOBAL));
+    setOutcomesLetters(handleOdometerLettersArray(OUTCOMES));
   }, []);
 
   useGSAP(() => {
@@ -108,7 +107,7 @@ export default function PageContent() {
   };
 
   const createOdometer = (text: string) => {
-    const odometerArray = text === "GLOBAL" ? globalLetters : outcomesLetters;
+    const odometerArray = text === GLOBAL ? globalLetters : outcomesLetters;
     return odometerArray.map((letter, index) => {
       return (
         <motion.div
@@ -134,20 +133,20 @@ export default function PageContent() {
         ref={titleRef}
         className="text-[#F5F5F5] pt-20 lg:pt-0 text-center text-[40px] lg:text-[94px] pb-2 font-medium not-italic lg:font-[500] leading-[120%] tracking-[-1.2px] lg:tracking-[-1.4px] opacity-0"
       >
-        Payments designed for
+        {PAGE_TITLE}
       </h1>
       <div className="flex flex-col items-center lg:flex-row lg:gap-4">
         <div
           ref={odometerTitleRef}
           className="text-white overflow-hidden h-11 lg:h-[90px] opacity-0"
         >
-          {createOdometer("GLOBAL")}
+          {createOdometer(GLOBAL)}
         </div>
         <div
           ref={outcomesTitleRef}
           className="text-white overflow-hidden h-11 lg:h-[90px] opacity-0"
         >
-          {createOdometer("OUTCOMES")}
+          {createOdometer(OUTCOMES)}
         </div>
       </div>
       <div className="hidden max-w-[642px] justify-center items-center lg:px-14 lg:pt-[115px] text-center cursor-pointer lg:flex z-40">
@@ -155,10 +154,8 @@ export default function PageContent() {
           ref={subTitleRef}
           className="text-[#BCBCBF] text-[19.027px] not-italic font-normal leading-[150%] opacity-0"
         >
-          <span className="font-semibold text-[#FFF] ">Juspay</span> powers
-          leading enterprises around the world, simplifying global coverage,
-          orchestration, conversions, fraud reduction and seamless customer
-          experiences.
+          <span className="font-semibold text-[#FFF] ">{JUSPAY}</span>
+          {SECONDARY_TEXT}
         </h2>
       </div>
       <div className="flex items-center justify-center max-w-[250px] pt-8 lg:hidden">
@@ -166,12 +163,11 @@ export default function PageContent() {
           ref={secondarySubTitleRef}
           className="text-[#BCBCBF] text-sm not-italic font-normal leading-[150%] text-center opacity-0"
         >
-          Simplify
+          {SIMPLIFY}
           <span className="font-semibold text-[#FFF] pl-1">
-            global coverage
+            {GLOBAL_COVERAGE}
           </span>
-          , optimise costs, improve conversions, and minimise payment
-          operations.
+          {SECONDARY_MOBILE_TEXT}
         </h2>
       </div>
     </>
