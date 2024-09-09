@@ -31,7 +31,7 @@ export default function MarqueeComponent() {
   ];
 
   return (
-    <Marquee speed={150} gradient gradientColor="black" gradientWidth={100} className="mt-20 lg:mt-12">
+    <Marquee speed={150} gradient gradientColor="rgb(18, 19, 22)" gradientWidth={100} className="mt-20 lg:mt-12">
       {marqueeImages.map((images, index) => {
         return (
           <Image

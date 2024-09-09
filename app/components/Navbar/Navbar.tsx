@@ -69,7 +69,7 @@ export default function Navbar() {
   });
   return (
     <div className="w-full px-5 py-3 lg:py-7 lg:pr-11 lg:pl-8">
-      <div className="rounded-full lg:rounded-none border-[#211F1F] border-2 lg:border-none p-2 lg:p-0 flex justify-between">
+      <div className="rounded-full border-[#211F1F] border-2 p-2 lg:p-5 flex justify-between">
         <div className="cursor-pointer flex items-center gap-1 md:gap-2 p-2 lg:p-0">
           <Image
             className="opacity-0 w-6 md:w-8 lg:w-10"

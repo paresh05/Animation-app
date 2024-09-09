@@ -17,7 +17,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  background-color: #000000;
+  background-color: rgb(18, 19, 22);
   font-family: "Plus Jakarta Sans";
 }
 
