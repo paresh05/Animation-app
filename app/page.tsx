@@ -14,7 +14,7 @@ export default function Home() {
     <div className="flex flex-col items-center" onMouseOut={()=>setIsHovered(true)} onMouseOver={()=>setIsHovered(false)}>
       <Cursor isHovered={isHovered} />
       <div className="flex flex-col items-center w-full lg:px-10">
-        <Image src={Background} alt="background" className="absolute -z-30" />
+        <Image src={Background} alt="background" className="absolute -z-30 top-52 lg:top-0" />
         <Navbar
           handleMouseOut={() => setIsHovered(false)}
           handleMouseOver={() => setIsHovered(true)}
