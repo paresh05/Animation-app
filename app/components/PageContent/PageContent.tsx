@@ -4,14 +4,32 @@ import { motion, useCycle } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { CHARACTERS, GLOBAL, GLOBAL_COVERAGE, JUSPAY, OUTCOMES, PAGE_TITLE, SECONDARY_MOBILE_TEXT, SECONDARY_TEXT, SIMPLIFY } from "@/app/utils/constants";
+import {
+  CHARACTERS,
+  ComponentProps,
+  GLOBAL,
+  GLOBAL_COVERAGE,
+  JUSPAY,
+  OUTCOMES,
+  PAGE_TITLE,
+  SECONDARY_MOBILE_TEXT,
+  SECONDARY_TEXT,
+  SIMPLIFY,
+} from "@/app/utils/constants";
+import NextIcon from "../../assets/next.svg";
+import Image from "next/image";
 
-export default function PageContent() {
+export default function PageContent({
+  handleMouseOut,
+  handleMouseOver,
+}: ComponentProps) {
   const titleRef = useRef(null);
   const subTitleRef = useRef(null);
   const secondarySubTitleRef = useRef(null);
   const odometerTitleRef = useRef(null);
   const outcomesTitleRef = useRef(null);
+  const demoRef = useRef(null);
+  const scheduleDemoRef = useRef(null);
 
   const generateString = (length: number) => {
     let result = "";
@@ -57,6 +75,9 @@ export default function PageContent() {
     const title = titleRef.current;
     const subTitle = subTitleRef.current;
     const secondarySubTitle = secondarySubTitleRef.current;
+    const demo = demoRef.current;
+    const scheduleDemo = scheduleDemoRef.current;
+
     gsap.fromTo(
       title,
       { y: 100 },
@@ -88,6 +109,20 @@ export default function PageContent() {
         ease: "power4.out",
       }
     );
+    gsap.to(scheduleDemo, {
+      opacity: 1,
+      width: "100%",
+      delay: 2,
+      duration: 2,
+      ease: "power4.out",
+    });
+    gsap.to(demo, {
+      opacity: 1,
+      width: "100%",
+      delay: 2,
+      duration: 2,
+      ease: "power4.out",
+    });
   });
 
   const handleOdometerAnimation = () => {
@@ -131,11 +166,29 @@ export default function PageContent() {
     <>
       <h1
         ref={titleRef}
+        onMouseOver={(e) => {
+          e.stopPropagation();
+          handleMouseOver();
+        }}
+        onMouseOut={(e) => {
+          e.stopPropagation();
+          handleMouseOut();
+        }}
         className="text-[#F5F5F5] pt-20 lg:pt-0 text-center text-[40px] lg:text-[94px] pb-2 font-medium not-italic lg:font-[500] leading-[120%] tracking-[-1.2px] lg:tracking-[-1.4px] opacity-0"
       >
         {PAGE_TITLE}
       </h1>
-      <div className="flex flex-col items-center lg:flex-row lg:gap-4">
+      <div
+        onMouseOver={(e) => {
+          e.stopPropagation();
+          handleMouseOver();
+        }}
+        onMouseOut={(e) => {
+          e.stopPropagation();
+          handleMouseOut();
+        }}
+        className="flex flex-col items-center lg:flex-row lg:gap-4"
+      >
         <div
           ref={odometerTitleRef}
           className="text-white overflow-hidden h-11 lg:h-[90px] opacity-0"
@@ -149,7 +202,17 @@ export default function PageContent() {
           {createOdometer(OUTCOMES)}
         </div>
       </div>
-      <div className="hidden max-w-[642px] justify-center items-center lg:px-14 lg:pt-[115px] text-center cursor-pointer lg:flex z-40">
+      <div
+        onMouseOver={(e) => {
+          e.stopPropagation();
+          handleMouseOver();
+        }}
+        onMouseOut={(e) => {
+          e.stopPropagation();
+          handleMouseOut();
+        }}
+        className="hidden max-w-[642px] justify-center items-center lg:px-14 lg:pt-[115px] text-center cursor-pointer lg:flex z-40"
+      >
         <h2
           ref={subTitleRef}
           className="text-[#BCBCBF] text-[19.027px] not-italic font-normal leading-[150%] opacity-0"
@@ -158,7 +221,17 @@ export default function PageContent() {
           {SECONDARY_TEXT}
         </h2>
       </div>
-      <div className="flex items-center justify-center max-w-[250px] pt-8 lg:hidden">
+      <div
+        onMouseOver={(e) => {
+          e.stopPropagation();
+          handleMouseOver();
+        }}
+        onMouseOut={(e) => {
+          e.stopPropagation();
+          handleMouseOut();
+        }}
+        className="flex items-center justify-center max-w-[250px] pt-8 lg:hidden"
+      >
         <h2
           ref={secondarySubTitleRef}
           className="text-[#BCBCBF] text-sm not-italic font-normal leading-[150%] text-center opacity-0"
@@ -170,6 +243,34 @@ export default function PageContent() {
           {SECONDARY_MOBILE_TEXT}
         </h2>
       </div>
+      <a
+        onMouseOver={(e) => {
+          e.stopPropagation();
+          handleMouseOver();
+        }}
+        onMouseOut={(e) => {
+          e.stopPropagation();
+          handleMouseOut();
+        }}
+        href="/contact"
+        target=""
+        className="z-50"
+      >
+        <div
+          ref={scheduleDemoRef}
+          className="inline-flex h-[65px] justify-center items-center gap-2 shrink-0 px-7 py-5 rounded-[86px] z-10 mt-[50px] lg:mt-16 bg-custom-gradient w-0 opacity-0"
+        >
+          <span
+            ref={demoRef}
+            className="text-[#FFF] text-lg not-italic font-semibold leading-[120%] overflow-hidden text-nowrap w-0"
+          >
+            Schedule a demo
+          </span>
+          <div className="icon-container flex max-w-[24px] h-[24px] justify-center items-center pt-[3px]">
+            <Image src={NextIcon} alt="Scedule demo" />
+          </div>
+        </div>
+      </a>
     </>
   );
 }

@@ -19,6 +19,9 @@ const config: Config = {
       textOrientation: {
         upright: "upright",
       },
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(105.25deg, #016FD0 4.61%, #044AAD 86.96%, #03357C 162.29%)',
+      },
     },
   },
   plugins: [

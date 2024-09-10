@@ -9,6 +9,7 @@ import Globe from "../../assets/globe.svg";
 import Menu from "../../assets/menu.svg";
 import Close from "../../assets/close.svg";
 import {
+  ComponentProps,
   GLOBAL_OPTIONS,
   JUSPAY_LOGO,
   LOGO_DISPLAY_ORDER,
@@ -16,7 +17,10 @@ import {
 } from "@/app/utils/constants";
 import "./navbar.css";
 
-export default function Navbar() {
+export default function Navbar({
+  handleMouseOut,
+  handleMouseOver,
+}: ComponentProps) {
   const logoRef = useRef(null);
   const [showOptions, setShowOptions] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -51,7 +55,14 @@ export default function Navbar() {
     gsap.fromTo(
       links,
       { y: 25 },
-      { y: 0, opacity: 1, duration: 1, ease: "power3.out", stagger: 0.2 }
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        stagger: 0.3,
+        delay: 2,
+      }
     );
 
     gsap.fromTo(
@@ -61,6 +72,7 @@ export default function Navbar() {
         x: 0,
         rotation: "-=360",
         duration: 1,
+        delay: 2,
         opacity: 1,
         onComplete: handleLogoTextAnimation,
       }
@@ -68,7 +80,17 @@ export default function Navbar() {
   });
   return (
     <div className="w-full px-5 py-3 lg:py-7 lg:pr-11 lg:pl-8">
-      <div className="rounded-full border-[#211F1F] border-2 p-2 lg:p-5 flex justify-between">
+      <div
+        onMouseOver={(e) => {
+          e.stopPropagation();
+          handleMouseOver();
+        }}
+        onMouseOut={(e) => {
+          e.stopPropagation();
+          handleMouseOut();
+        }}
+        className="rounded-full border-[#211F1F] bg-[#121316] border-2 p-2 lg:p-5 flex justify-between"
+      >
         <div className="cursor-pointer flex items-center gap-1 md:gap-2 p-2 lg:p-0">
           <Image
             className="opacity-0 w-6 md:w-8 lg:w-10"
@@ -91,6 +113,7 @@ export default function Navbar() {
               className="hidden px-3 lg:block text-lg opacity-0 text-white hover:text-[#0B65E3] font-medium hover:font-semibold"
               key={index}
               href={link.href}
+              onMouseOver={() => setShowOptions(false)}
             >
               {link.text}
             </a>
@@ -98,7 +121,9 @@ export default function Navbar() {
           <a
             onMouseOver={() => setShowOptions(true)}
             onMouseOut={() => {
-              setShowOptions(false);
+              if (window.innerWidth < 1024) {
+                setShowOptions(false);
+              }
             }}
             className="opacity-0 lg:px-3 cursor-pointer"
           >
@@ -111,6 +136,7 @@ export default function Navbar() {
           <a
             className="hidden px-3 lg:flex gap-1 items-center text-lg font-semibold opacity-0 text-[#0099FF] hover:text-[#0561E2]"
             href="/contact-us"
+            onMouseOver={() => setShowOptions(false)}
           >
             Contact us
             <Image alt="Contact us" className="h-3 ml-1" src={ContactUs} />
@@ -132,9 +158,15 @@ export default function Navbar() {
       </div>
       {showOptions && (
         <div
-          onMouseOver={() => setShowOptions(true)}
-          onMouseOut={() => {
+          onMouseOver={(e) => {
+            e.stopPropagation();
+            setShowOptions(true);
+            handleMouseOver();
+          }}
+          onMouseOut={(e) => {
+            e.stopPropagation();
             setShowOptions(false);
+            handleMouseOut();
           }}
           className="absolute z-50 flex flex-col mt-4 lg:mt-1 right-20 lg:right-60 gap-2 text-white rounded-lg bg-[#2D2D2D]"
         >

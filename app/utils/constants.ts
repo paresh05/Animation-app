@@ -40,3 +40,8 @@ export const GLOBAL_COVERAGE = "global coverage";
 export const SIMPLIFY = "Simplify";
 
 export const CHARACTERS = "A$$RR$I$BCDE$F$";
+
+export interface ComponentProps {
+  handleMouseOut: () => void;
+  handleMouseOver: () => void;
+}

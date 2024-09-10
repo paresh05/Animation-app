@@ -18,11 +18,11 @@ export default function MarqueeComponent() {
   const marqueeImages = [
     Agoda,
     Amazon,
-    BurgerKing,
     Flipkart,
     Google,
     Indigo,
     McDonalds,
+    BurgerKing,
     Microsoft,
     Oneplus,
     Starbucks,
@@ -31,18 +31,25 @@ export default function MarqueeComponent() {
   ];
 
   return (
-    <Marquee speed={150} gradient gradientColor="rgb(18, 19, 22)" gradientWidth={100} className="mt-20 lg:mt-12">
-      {marqueeImages.map((images, index) => {
-        return (
-          <Image
-            key={index}
-            src={images}
-            className="h-8 md:h-10 max-w-[unset] lg:h-16 mr-6 lg:mr-16"
-            alt="Juspay logo"
-            priority
-          />
-        );
-      })}
-    </Marquee>
+    <div className="mt-20 pt-12 lg:mt-12 lg:pb-12 w-full lg:px-10 bg-[#17181B] -z-20">
+      <Marquee
+        speed={150}
+        gradient
+        gradientColor="#17181B"
+        gradientWidth={100}
+      >
+        {marqueeImages.map((images, index) => {
+          return (
+            <Image
+              key={index}
+              src={images}
+              className="h-8 md:h-10 max-w-[unset] lg:h-16 mr-6 lg:mr-16"
+              alt="Juspay logo"
+              priority
+            />
+          );
+        })}
+      </Marquee>
+    </div>
   );
 }
